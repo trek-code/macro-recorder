@@ -39,7 +39,8 @@
       "nsis": {
         "displayLanguageSelector": false,
         "installMode": "currentUser",
-        "startMenuFolder": "Macro Recorder"
+        "startMenuFolder": "Macro Recorder",
+        "minimumWebview2Version": "2.0.0"
       }
     },
     "macOS": {
