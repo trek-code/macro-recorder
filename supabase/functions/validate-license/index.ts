@@ -67,7 +67,7 @@ serve(async (req) => {
       JSON.stringify({
         valid: true,
         tier: license.tier,
-        features: license.features,
+        features: license.features ?? [],
         expires_ms: license.expires_at ? new Date(license.expires_at).getTime() : null,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }

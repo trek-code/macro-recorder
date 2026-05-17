@@ -17,6 +17,37 @@
 
 body { background: var(--bg); color: var(--text); height: 100vh; overflow: hidden; }
 
+/* ── Update banner ── */
+.update-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 16px;
+  background: #1a3a1a;
+  border-bottom: 1px solid #2d6a2d;
+  color: #7ddc7d;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+  gap: 12px;
+}
+.update-banner-actions { display: flex; align-items: center; gap: 8px; }
+.update-link {
+  color: #7ddc7d;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.update-dismiss {
+  background: none;
+  border: none;
+  color: #7ddc7d;
+  cursor: pointer;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  padding: 0 2px;
+}
+.update-dismiss:hover { opacity: 1; }
+
 /* ── App shell ── */
 .app { display: flex; flex-direction: column; height: 100vh; }
 

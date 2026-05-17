@@ -149,6 +149,7 @@ pub struct ScheduledTask {
 // ── License ───────────────────────────────────────────────────────────────────
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[serde(default)]
 pub struct LicenseInfo {
     pub tier: String,      // "free" | "pro" | "lifetime"
     pub valid: bool,

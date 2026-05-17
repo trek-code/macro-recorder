@@ -11,6 +11,7 @@ import MarketplaceTab from "./components/MarketplaceTab";
 import AuthModal from "./components/AuthModal";
 import LicenseModal from "./components/LicenseModal";
 import LicenseGate, { tryAutoActivate } from "./components/LicenseGate";
+import UpdateBanner from "./components/UpdateBanner";
 import "./App.css";
 
 type Tab = "macros" | "autoclicker" | "profiles" | "script" | "scheduler" | "marketplace";
@@ -144,6 +145,7 @@ function MainApp() {
         </div>
       </header>
 
+      <UpdateBanner />
       <div className="tab-content">
         {tab === "macros" && (
           <MacrosTab
