@@ -10,11 +10,27 @@ import SchedulerTab from "./components/SchedulerTab";
 import MarketplaceTab from "./components/MarketplaceTab";
 import AuthModal from "./components/AuthModal";
 import LicenseModal from "./components/LicenseModal";
+import LicenseGate from "./components/LicenseGate";
 import "./App.css";
 
 type Tab = "macros" | "autoclicker" | "profiles" | "script" | "scheduler" | "marketplace";
 
 export default function App() {
+  const [licensed, setLicensed] = useState<boolean | null>(null); // null = checking
+
+  useEffect(() => {
+    invoke<{ valid: boolean }>("get_license_info")
+      .then((info) => setLicensed(info.valid))
+      .catch(() => setLicensed(false));
+  }, []);
+
+  if (licensed === null) return <div className="gate-overlay"><div className="gate-checking">Checking license…</div></div>;
+  if (!licensed) return <LicenseGate onUnlocked={() => setLicensed(true)} />;
+
+  return <MainApp />;
+}
+
+function MainApp() {
   const [tab, setTab] = useState<Tab>("macros");
   const [macros, setMacros] = useState<MacroData[]>([]);
   const [recording, setRecording] = useState(false);

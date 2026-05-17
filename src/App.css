@@ -506,3 +506,64 @@ body { background: var(--bg); color: var(--text); height: 100vh; overflow: hidde
 
 /* ── Muted text ── */
 .muted { font-size: 0.78rem; color: var(--muted); }
+
+/* ── License gate ── */
+.gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+.gate-checking { color: var(--muted); font-size: 0.9rem; }
+.gate-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 380px;
+  padding: 24px;
+}
+.gate-logo {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+.gate-logo span { color: var(--accent); }
+.gate-tagline { color: var(--muted); font-size: 0.9rem; margin-top: -8px; }
+.gate-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+.gate-input {
+  text-align: center;
+  font-size: 1.1rem;
+  font-family: monospace;
+  letter-spacing: 2px;
+  padding: 12px;
+}
+.gate-btn { width: 100%; padding: 12px; font-size: 1rem; }
+.gate-error { font-size: 0.82rem; color: var(--accent); text-align: center; }
+.gate-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.gate-machine-id {
+  font-size: 0.7rem;
+  background: rgba(255,255,255,0.05);
+  padding: 6px 12px;
+  border-radius: 6px;
+  word-break: break-all;
+  color: var(--muted);
+  text-align: center;
+  max-width: 340px;
+}
