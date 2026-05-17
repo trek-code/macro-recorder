@@ -161,8 +161,8 @@ impl LicenseInfo {
     pub fn free() -> Self {
         Self {
             tier: "free".into(),
-            valid: true,
-            features: vec!["record".into(), "playback".into(), "autoclicker".into()],
+            valid: false,
+            features: vec![],
             expires_ms: None,
             cached_at_ms: 0,
         }
