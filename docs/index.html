@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Macro Recorder — Automate anything on your PC</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0d0d1a;
+      --surface: #13132a;
+      --card:    #1a1a35;
+      --border:  rgba(255,255,255,0.07);
+      --accent:  #e94560;
+      --green:   #00b894;
+      --purple:  #6c5ce7;
+      --text:    #eaeaea;
+      --muted:   #7f8c9a;
+    }
+
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(13,13,26,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.5px; }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; font-size: 0.9rem; color: var(--muted); }
+    .nav-links a { color: var(--muted); }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .nav-cta:hover { opacity: 0.9; text-decoration: none; }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 100px 24px 80px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(233,69,96,0.15);
+      border: 1px solid rgba(233,69,96,0.3);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 36px;
+    }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: 13px 32px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover { opacity: 0.9; text-decoration: none; }
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 13px 32px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); text-decoration: none; }
+    .hero-note { margin-top: 16px; font-size: 0.8rem; color: var(--muted); }
+
+    /* ── Features ── */
+    .section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .section h2 {
+      text-align: center;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      margin-bottom: 48px;
+      letter-spacing: -0.5px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(233,69,96,0.3); }
+    .feature-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── Pricing ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .price-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .price-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(233,69,96,0.08), var(--card));
+    }
+    .price-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+    .price-label.hot { color: var(--accent); }
+    .price-amount { font-size: 2.4rem; font-weight: 800; letter-spacing: -1px; }
+    .price-amount span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .price-desc { font-size: 0.88rem; color: var(--muted); }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .price-features li { font-size: 0.88rem; display: flex; gap: 8px; align-items: flex-start; }
+    .price-features li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .price-btn {
+      display: block;
+      text-align: center;
+      padding: 11px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      color: var(--text);
+      cursor: pointer;
+    }
+    .price-btn.accent { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .price-btn:hover { opacity: 0.9; text-decoration: none; }
+
+    /* ── Download ── */
+    .download-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .download-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+    .download-section p { color: var(--muted); margin-bottom: 32px; }
+    .platform-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .platform-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .platform-btn:hover { border-color: rgba(255,255,255,0.2); text-decoration: none; }
+    .platform-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 40px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-brand">Macro<span>Recorder</span></div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#download">Download</a>
+      <a href="https://github.com/trek-code/macro-recorder">GitHub</a>
+    </div>
+    <a href="#download" class="nav-cta">Download Free</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">v0.3.0 — Now with AI image recognition</div>
+    <h1>Automate <em>anything</em><br>on your PC</h1>
+    <p>Record mouse & keyboard actions once, replay them forever. Built for power users, gamers, and anyone who hates repetitive tasks.</p>
+    <div class="hero-btns">
+      <a href="#download" class="btn-primary">⬇ Download for Windows</a>
+      <a href="#features" class="btn-secondary">See features</a>
+    </div>
+    <p class="hero-note">Free forever · No account required · Windows 10/11</p>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features">
+    <div class="section-label">Features</div>
+    <h2>Everything you need to automate</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⏺</div>
+        <h3>Record & Replay</h3>
+        <p>Capture every mouse click, movement, and keystroke with millisecond precision. Replay at any speed with configurable loops.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👁</div>
+        <h3>Image Recognition</h3>
+        <p>Wait for an image to appear on screen before acting. Click buttons by what they look like, not by fixed coordinates.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>Script Editor</h3>
+        <p>Write powerful automation scripts in Rhai — a fast, embedded scripting language with full access to mouse, keyboard, and screen APIs.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖱</div>
+        <h3>Auto-Clicker</h3>
+        <p>High-frequency clicking with randomized intervals, jitter, and configurable burst patterns. Fully adjustable and hotkey-controlled.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🕐</div>
+        <h3>Task Scheduler</h3>
+        <p>Run macros on a schedule — every N seconds, daily at a set time, or once at a specific moment. Fully unattended automation.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏪</div>
+        <h3>Marketplace</h3>
+        <p>Browse, download, and publish macros. Share your automations with the community or sell them directly in the built-in store.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h3>Macro Chaining</h3>
+        <p>Chain multiple macros together into sequences. Set loops and delays between each step for complex multi-stage workflows.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🪟</div>
+        <h3>Window Targeting</h3>
+        <p>Lock playback to a specific window. Coordinates are stored relative to the window — move it anywhere and macros still work.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <h3>Profiles & Hotkeys</h3>
+        <p>Save full configuration sets as profiles. Switch between setups instantly. Assign global hotkeys for hands-free control.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section" id="pricing">
+    <div class="section-label">Pricing</div>
+    <h2>Simple, honest pricing</h2>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-label">Free</div>
+        <div class="price-amount">$0</div>
+        <div class="price-desc">Everything you need to get started.</div>
+        <ul class="price-features">
+          <li>Record & replay macros</li>
+          <li>Auto-clicker</li>
+          <li>Step editor</li>
+          <li>Profiles & hotkeys</li>
+          <li>Import / export</li>
+        </ul>
+        <a href="#download" class="price-btn">Download Free</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-label hot">Pro — Most Popular</div>
+        <div class="price-amount">$9 <span>/ one-time</span></div>
+        <div class="price-desc">Unlock the full automation suite.</div>
+        <ul class="price-features">
+          <li>Everything in Free</li>
+          <li>Image recognition</li>
+          <li>Script editor (Rhai)</li>
+          <li>Task scheduler</li>
+          <li>Marketplace access</li>
+          <li>Cloud sync</li>
+        </ul>
+        <a href="#buy-pro" class="price-btn accent">Get Pro — $9</a>
+      </div>
+      <div class="price-card">
+        <div class="price-label">Lifetime</div>
+        <div class="price-amount">$29 <span>/ forever</span></div>
+        <div class="price-desc">All future updates included.</div>
+        <ul class="price-features">
+          <li>Everything in Pro</li>
+          <li>All future features</li>
+          <li>Priority support</li>
+          <li>Early access to beta</li>
+        </ul>
+        <a href="#buy-lifetime" class="price-btn">Get Lifetime — $29</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section class="download-section" id="download">
+    <h2>Ready to automate?</h2>
+    <p>Free download · No account required · Windows 10/11 · 8 MB</p>
+    <div class="platform-btns">
+      <a href="https://github.com/trek-code/macro-recorder/releases/latest/download/MacroRecorder_x64-setup.exe"
+         class="platform-btn primary">
+        🪟 Windows (Installer)
+      </a>
+      <a href="https://github.com/trek-code/macro-recorder/releases/latest/download/MacroRecorder_x64.msi"
+         class="platform-btn">
+        🪟 Windows (MSI)
+      </a>
+    </div>
+    <p style="margin-top:16px; font-size:0.8rem; color:var(--muted);">
+      macOS &amp; Linux builds coming soon
+    </p>
+  </section>
+
+  <footer>
+    <div>© 2026 Macro Recorder · Built with Tauri + Rust</div>
+    <div style="display:flex;gap:20px;">
+      <a href="https://github.com/trek-code/macro-recorder">GitHub</a>
+      <a href="mailto:support@macrorecorder.app">Support</a>
+    </div>
+  </footer>
+
+</body>
+</html>
